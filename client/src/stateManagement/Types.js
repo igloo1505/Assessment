@@ -1,0 +1,10 @@
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const REGISTER_NEW_USER = "REGISTER_NEW_USER";
+export const ADD_NEW_RECIPE = "ADD_NEW_RECIPE";
+export const EDIT_RECIPE = "EDIT_RECIPE";
+export const DELETE_RECIPE = "DELETE_RECIPE";
+export const FAVORITE_RECIPE = "FAVORITE_RECIPE";
+export const GET_ALL_RECIPES = "GET_ALL_RECIPES";
+export const GET_BY_INGREDIENT = "GET_BY_INGREDIENT";
+export const USER_ERROR = "USER_ERROR";
