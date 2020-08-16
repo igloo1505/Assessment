@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:api": "json-server --watch data.json --id uuid --port 3001",
-    "dev:jsonServer": "concurrently \"json-server --watch data.json --id uuid --port 3001\" \"npm run start --prefix client\"",
+    "dev:jsonServer": "concurrently \"json-server --watch data.json --id uuid \" \"npm run start --prefix client\"",
+    "jsonServer": "json-server --watch data.json --id uuid --port 3001",
     "dev": "concurrently \"nodemon server.js\" \"npm run start --prefix client\""
   },
   "repository": {

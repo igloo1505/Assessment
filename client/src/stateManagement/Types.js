@@ -8,3 +8,4 @@ export const FAVORITE_RECIPE = "FAVORITE_RECIPE";
 export const GET_ALL_RECIPES = "GET_ALL_RECIPES";
 export const GET_BY_INGREDIENT = "GET_BY_INGREDIENT";
 export const USER_ERROR = "USER_ERROR";
+export const SET_LOADING = "SET_LOADING";

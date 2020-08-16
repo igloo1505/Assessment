@@ -1,96 +1,116 @@
 #landing {
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
 }
 
 #darkOverlay {
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    padding: 1rem;
-    margin: auto;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 1rem;
+  margin: auto;
 }
 
 #signInLabel {
-    float: left
+  float: left;
 }
 
 .jumbotron {
-    /* background-color: #d3d3d3; */
-    width: fit-content;
-    align-self: center;
+  /* background-color: #d3d3d3; */
+  width: fit-content;
+  align-self: center;
 }
 
+.gradientBackground {
+  background: hsla(16, 83%, 55%, 1);
 
-/* 
-.btnContainer button {
-    margin: auto 3rem;
-    width: 12rem
-} */
+  background: linear-gradient(225deg, hsla(16, 83%, 55%, 1) 0%, hsla(49, 87%, 61%, 1) 100%);
 
+  background: -moz-linear-gradient(225deg, hsla(16, 83%, 55%, 1) 0%, hsla(49, 87%, 61%, 1) 100%);
 
+  background: -webkit-linear-gradient(225deg, hsla(16, 83%, 55%, 1) 0%, hsla(49, 87%, 61%, 1) 100%);
 
-
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#ec5e2c", endColorstr="#f2d244", GradientType=1);
+}
 
 /* Equivalent to bootstraps d-lg */
 @media (min-width: 992px) {
-    .btnContainer {
-        justify-content: center;
-        margin-top: 3rem;
-    }
+  .btnContainer {
+    justify-content: center;
+    margin-top: 3rem;
+  }
 
-    .btnContainer button {
-        margin: auto 3rem;
-        width: 12rem
-    }
+  .btnContainer button {
+    margin: auto 3rem;
+    width: 12rem;
+  }
 }
 
+@media (min-width: 768px) {
+  .navbarUL {
+    flex-direction: row;
+    margin-left: auto;
+    width: 100vw;
+    left: 0;
+    position: absolute;
+    justify-content: center;
+  }
+
+  .brandOnLarge {
+    align-self: flex-start;
+    float: left;
+    margin-left: 2rem;
+  }
+}
 
 /* Equivalent to bootstraps md and down */
 @media (max-width: 992px) {
-    .btnContainer {
-        display: flex;
-        justify-content: space-around;
-        margin-left: 2.5rem;
-        margin-right: 2.5rem;
-        margin-top: 3rem;
-    }
+  .btnContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    margin-top: 3rem;
+  }
 
-    .btnContainer button {
-        margin: auto 0.8rem;
-        width: 10rem;
-    }
+  .btnContainer button {
+    margin: auto 0.8rem;
+    width: 10rem;
+  }
 }
 
-
 @media (max-width: 768px) {
-    .btnContainer {
-        display: flex;
-        justify-content: space-around;
-        flex-direction: column;
-        margin-left: 2.5rem;
-        margin-right: 2.5rem;
-        margin-top: 3rem;
-    }
+  .btnContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    margin-top: 0;
+  }
 
-    .btnContainer button {
-        margin: 0.8rem auto;
-        width: 10rem;
-    }
+  .btnContainer button {
+    margin: 0.8rem auto;
+    width: 10rem;
+  }
+
+  .brandOnLarge {
+    display: none;
+  }
 }

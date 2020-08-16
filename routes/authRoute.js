@@ -33,6 +33,8 @@ router.post("/", async (req, res) => {
       },
       (err, token) => {
         if (err) throw err;
+        user.password = "Shhh this is classified";
+        console.log(user);
         res.json({ token, user });
       }
     );

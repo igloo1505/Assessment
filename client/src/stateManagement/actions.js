@@ -4,6 +4,7 @@ import {
   REGISTER_NEW_USER,
   USER_ERROR,
 } from "./Types.js";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import setAuthenticated from "./setAuthenticated";
 
@@ -14,17 +15,15 @@ const config = {
 };
 
 export const loginUser = (user) => async (dispatch) => {
-  console.log(user);
   try {
-    const res = await axios.post("/authenticate", user, config);
-    console.log(res);
+    let res = await axios.post("/authenticate", user, config);
     dispatch({
-      type: LOGIN_USER,
       payload: res.data,
+      type: LOGIN_USER,
     });
   } catch (error) {
     dispatch({
-      payload: error.msg,
+      payload: error,
       type: USER_ERROR,
     });
   }
