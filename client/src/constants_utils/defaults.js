@@ -2,7 +2,6 @@ import axios from "axios";
 export const setAxiosDefaultsDev = (token) => {
   console.log(token);
   axios.defaults.baseURL = "http://localhost:3001";
-
   if (token) {
     axios.defaults.headers = {
       "Content-Type": "application/json",
@@ -16,7 +15,6 @@ export const setAxiosDefaultsDev = (token) => {
 };
 export const setAxiosDefaultsProd = (token) => {
   console.log(token);
-  axios.defaults.baseURL = "http://localhost:5000";
   if (token) {
     axios.defaults.headers = {
       "Content-Type": "application/json",
