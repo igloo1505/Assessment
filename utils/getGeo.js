@@ -1,5 +1,5 @@
 const config = require("config");
-const Axios = require("Axios");
+const Axios = require("axios");
 
 const htmlEncoded = (data) => {
   let coded = ["%20"];
