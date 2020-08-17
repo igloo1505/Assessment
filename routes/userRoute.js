@@ -47,9 +47,10 @@ router.post("/", async (req, res) => {
         id: user.id,
       },
     };
+    const JwtSecret = process.env.JWT_SECRET;
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      JwtSecret,
       {
         expiresIn: 10800,
       },

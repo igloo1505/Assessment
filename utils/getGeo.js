@@ -14,7 +14,7 @@ const htmlEncoded = (data) => {
 };
 
 const getGeo = async (locationData) => {
-  const googleKey = config.get("googleServerKey");
+  const googleKey = process.env.GOOGLE_SERVER_KEY;
   const city = htmlEncoded(locationData.city);
   const state = htmlEncoded(locationData.state);
   const street = htmlEncoded(locationData.street);
