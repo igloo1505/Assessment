@@ -26,7 +26,7 @@ const Landing = ({ user: { isAuthenticated, token } }) => {
     if (isAuthenticated && token) {
       isLoggedInRedirect();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, token]);
 
   return (
     <div id="landing" className="text-center">

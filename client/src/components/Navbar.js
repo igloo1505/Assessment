@@ -17,7 +17,7 @@ const Navbar = ({ active, user: { isAuthenticated, token } }) => {
     if (isAuthenticated && token) {
       setAuthenticated(true);
     }
-  });
+  }, [isAuthenticated, token]);
 
   return (
     <div>

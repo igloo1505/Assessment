@@ -4,6 +4,7 @@ import {
   REGISTER_NEW_USER,
   SET_LOADING,
   USER_ERROR,
+  CHANGE_FAVORITE,
 } from "../Types";
 import setAuthenticated from "../setAuthenticated";
 import { useHistory } from "react-router-dom";
@@ -46,13 +47,21 @@ export default (state = initialState, action) => {
     case LOGIN_USER:
       let { token, user } = action.payload;
       localStorage.setItem("token", token);
-      console.log(action.payload);
       return {
         ...state,
         token: token,
         isAuthenticated: true,
         loading: false,
         user: user,
+      };
+
+    case CHANGE_FAVORITE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          favorites: action.payload.user.favorites,
+        },
       };
 
     case SET_LOADING:

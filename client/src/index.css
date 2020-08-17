@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 #landing {
   height: 100vh;
   width: 100vw;
@@ -66,6 +70,11 @@
 }
 
 .signUpCardForm {
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+.detailsCardMain {
   padding: 5px 0;
   font-size: 16px;
 }
@@ -145,6 +154,25 @@
   margin: 20px;
 }
 
+.detailCardButton {
+
+  display: inline-block;
+  position: absolute;
+  vertical-align: center;
+  text-align: center;
+  right: 1.5rem;
+  bottom: 1.5rem
+}
+
+.ingredientUL {
+  color: #fff;
+  float: left;
+  list-style: none;
+  text-align: left;
+  padding-inline-start: 10px;
+  width: 100%;
+}
+
 /* Equivalent to bootstraps d-lg */
 @media (min-width: 992px) {
   .btnContainer {
@@ -181,6 +209,14 @@
     padding-bottom: 100px;
   }
 
+  .detailCardWrapper {
+    max-width: 1200px;
+    min-height: 600px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+
   .signUpCard {
     display: table;
     background: #000;
@@ -188,6 +224,18 @@
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+  }
+
+  .detailCard {
+    display: table;
+    background: #000;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    min-height: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 85%;
+    margin: auto;
   }
 
   .signUpCardImg {
@@ -201,10 +249,15 @@
     display: table-cell;
     width: 50%;
     padding: 65px 57px;
+    position: relative;
   }
 
   .signUpCardForm {
     width: 100%;
+  }
+
+  .detailsCardMain {
+    width: 100%
   }
 }
 
@@ -260,11 +313,28 @@
     padding-bottom: 100px;
   }
 
+  .detailCardWrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-top: 180px;
+    padding-bottom: 100px;
+  }
+
   .signUpCard {
     display: block;
     background: #000;
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .detailCard {
+    display: block;
+    background: #000;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    min-height: 450px;
     border-radius: 10px;
     overflow: hidden;
   }
@@ -286,7 +356,25 @@
     padding-right: 25px;
   }
 
+  .detailCardWrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 100px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
   .signUpCard {
+    display: block;
+    background: #000;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .detailCard {
     display: block;
     background: #000;
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
@@ -300,6 +388,7 @@
     width: 100%;
     padding: 36px 30px;
     padding-bottom: 60px;
+    position: relative;
   }
 
   .cardInputPassword {

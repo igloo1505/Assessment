@@ -33,7 +33,7 @@ function App() {
       setAxiosDefaultsProd(token);
       console.log(`ran setDefaults as ${process.env.NODE_ENV} `);
     }
-  }, []);
+  });
   const [detailViewId, setDetailViewId] = useState("");
 
   return (

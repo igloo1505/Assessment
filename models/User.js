@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Recipe = require("../models/Recipe");
 
 const UserSchema = mongoose.Schema({
   name: {
@@ -13,10 +14,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  favorites: {
-    type: Array,
-    default: [],
-  },
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: Recipe }],
   location: {
     street: {
       type: String,

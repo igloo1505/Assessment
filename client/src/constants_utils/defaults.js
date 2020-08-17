@@ -1,16 +1,31 @@
 import axios from "axios";
 export const setAxiosDefaultsDev = (token) => {
+  console.log(token);
   axios.defaults.baseURL = "http://localhost:3001";
-  axios.defaults.headers["x-auth-token"] = token;
-  axios.defaults.headers = {
-    "Content-Type": "application/json",
-  };
+
+  if (token) {
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+    };
+  } else {
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+    };
+  }
 };
 export const setAxiosDefaultsProd = (token) => {
-  axios.defaults.headers["x-auth-token"] = token;
-  axios.defaults.headers = {
-    "Content-Type": "application/json",
-  };
+  console.log(token);
+  if (token) {
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+    };
+  } else {
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+    };
+  }
 };
 
 export const styleObject = {

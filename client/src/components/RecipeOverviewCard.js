@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import $ from "jquery";
+import { setFavorite } from "../stateManagement/actions.js";
 
 const RecipeOverviewCard = ({
   props: { recipe, setDetailViewId },
   recipes,
+  user,
+  setFavorite,
 }) => {
   const [matched_specials, setMatched_specials] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     const matchedSpecials = [];
     let specials = recipes.matchingSpecials;
@@ -27,19 +31,33 @@ const RecipeOverviewCard = ({
       $('[data-toggle="tooltip"]').tooltip();
     });
   })();
-  console.log("specials", matched_specials);
+  let currentFavs = user.user.favorites;
+  const handleFavs = (e) => {
+    if (!user.isAuthenticated || !user.token) {
+      history.push("/signUp");
+    }
+    let id = recipe._id;
+    e.preventDefault();
+    e.stopPropagation();
+    let method = "add";
+    if (currentFavs.indexOf(id) !== -1) {
+      method = "subtract";
+    }
+    setFavorite({ method, id, userId: user.user._id });
+  };
+
   let tooltipTemplate = "";
   for (let i = 0; i < matched_specials.length; i++) {
     let templateString = `<div>${matched_specials[i].title}</div>`;
     tooltipTemplate += templateString;
   }
-  const history = useHistory();
+
   const redirectToDetailView = () => {
     setDetailViewId(recipe);
     history.push("/details");
   };
   return (
-    <div className="overviewCard" onClick={redirectToDetailView}>
+    <div className="overviewCard" onClick={(e) => redirectToDetailView(e)}>
       <div className="cardContent">
         <h2 style={{ color: "#fff", fontWeight: 600 }}>{recipe.title}</h2>
         <h5 style={{ color: "#fff", fontWeight: 600 }}>{recipe.description}</h5>
@@ -100,7 +118,9 @@ const RecipeOverviewCard = ({
             </div>
           )}
         </div>
-        <button className="btn btn-primary cardButton">Favorite</button>
+        <button className="btn btn-primary cardButton" onClick={handleFavs}>
+          Favorite
+        </button>
         <button className="btn btn-primary cardButton">Details</button>
       </div>
     </div>
@@ -108,7 +128,8 @@ const RecipeOverviewCard = ({
 };
 const mapStateToProps = (state, ownProps) => ({
   recipes: state.recipe,
+  user: state.user,
   props: ownProps,
 });
 
-export default connect(mapStateToProps)(RecipeOverviewCard);
+export default connect(mapStateToProps, { setFavorite })(RecipeOverviewCard);

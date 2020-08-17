@@ -2,14 +2,17 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   REGISTER_NEW_USER,
+  CHANGE_FAVORITE,
   USER_ERROR,
   GET_ALL_RECIPES,
   RECIPE_ERROR,
 } from "./Types.js";
 import axios from "axios";
 import setAuthenticated from "./setAuthenticated";
-import { store } from "../stateManagement/store";
-import { useStore } from "react-redux";
+import {
+  setAxiosDefaultsDev,
+  setAxiosDefaultsProd,
+} from "../constants_utils/defaults.js";
 
 const config = {
   headers: {
@@ -20,6 +23,13 @@ const config = {
 export const loginUser = (user) => async (dispatch) => {
   try {
     let res = await axios.post("/authenticate", user, config);
+    if (process.env.NODE_ENV == "development") {
+      setAxiosDefaultsDev(res.data.token);
+      console.log(`ran setDefaults as ${process.env.NODE_ENV} `);
+    } else {
+      setAxiosDefaultsProd(res.data.token);
+      console.log(`ran setDefaults as ${process.env.NODE_ENV} `);
+    }
     dispatch({
       payload: res.data,
       type: LOGIN_USER,
@@ -42,7 +52,27 @@ export const registerNewUser = (user) => async (dispatch) => {
   };
   try {
     const res = await axios.post("/users", userConstructedObject, config);
+    if (process.env.NODE_ENV == "development") {
+      setAxiosDefaultsDev(res.data.token);
+      console.log(`ran setDefaults as ${process.env.NODE_ENV} `);
+    } else {
+      setAxiosDefaultsProd(res.data.token);
+      console.log(`ran setDefaults as ${process.env.NODE_ENV} `);
+    }
     dispatch({ type: REGISTER_NEW_USER, payload: res.data });
+  } catch (error) {
+    dispatch({
+      payload: error,
+      type: USER_ERROR,
+    });
+  }
+};
+
+export const setFavorite = (favData) => async (dispatch) => {
+  console.log("atAction", favData);
+  try {
+    const res = await axios.put(`/users/setFavorite`, favData, config);
+    dispatch({ type: CHANGE_FAVORITE, payload: res.data });
   } catch (error) {
     dispatch({
       payload: error,

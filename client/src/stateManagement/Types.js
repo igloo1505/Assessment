@@ -10,3 +10,4 @@ export const GET_BY_INGREDIENT = "GET_BY_INGREDIENT";
 export const USER_ERROR = "USER_ERROR";
 export const SET_LOADING = "SET_LOADING";
 export const RECIPE_ERROR = "RECIPE_ERROR";
+export const CHANGE_FAVORITE = "CHANGE_FAVORITE";
