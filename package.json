@@ -7,6 +7,8 @@
     "start:api": "json-server --watch data.json --id uuid --port 3001",
     "dev:jsonServer": "concurrently \"json-server --watch data.json --id uuid \" \"npm run start --prefix client\"",
     "jsonServer": "json-server --watch data.json --id uuid --port 3001",
+    "node": "node server.js",
+    "seed": "node ./utils/seeder.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run start --prefix client\""
   },
   "repository": {
@@ -35,6 +37,7 @@
     "moment": "^2.27.0",
     "mongodb": "^3.6.0",
     "mongoose": "^5.10.0",
+    "mongoose-file": "0.0.2",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

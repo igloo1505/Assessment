@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { styleObject } from "../constants_utils/defaults";
+import SignInModal from "./SignInModal";
 
 const Navbar = ({ active, user: { isAuthenticated, token } }) => {
   let history = useHistory();
@@ -10,7 +10,6 @@ const Navbar = ({ active, user: { isAuthenticated, token } }) => {
   };
   const [activeTab, setActiveTab] = useState("");
   useEffect(() => {
-    console.log("active", active);
     setActiveTab(active);
   }, [active]);
   const [authenticated, setAuthenticated] = useState(false);
@@ -81,6 +80,17 @@ const Navbar = ({ active, user: { isAuthenticated, token } }) => {
                   onClick={() => setRedirect("/myProfile")}
                 >
                   My Profile
+                </a>
+              </li>
+            )}
+            {!authenticated && (
+              <li className="nav-item active">
+                <a
+                  className="nav-link"
+                  data-toggle="modal"
+                  data-target="#signInModal"
+                >
+                  Login
                 </a>
               </li>
             )}

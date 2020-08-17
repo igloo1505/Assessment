@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 const ProtectedRoute = ({
-  user: { loggedIn, loading },
+  user: { isAuthenticated, loading },
   component: Component,
   user,
   ...rest
@@ -12,7 +12,7 @@ const ProtectedRoute = ({
     <Route
       {...rest}
       render={(props) =>
-        !loggedIn && !loading ? (
+        !isAuthenticated && !loading ? (
           <Redirect to="/viewAll" />
         ) : (
           <Component {...props} />

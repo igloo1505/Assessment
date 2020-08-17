@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Recipe = require("../models/Recipe");
 const Ingredient = require("../models/Ingredient");
+const Special = require("../models/Special");
 const { v4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -14,8 +15,43 @@ router.get("/details/:id", (req, res) => {
   return res.send(req.params.id);
 });
 
-router.get("/", (req, res) => {
-  return res.send("made it to route getByAll");
+router.get("/paginate/:page", async (req, res) => {
+  const returnLimit = 10;
+  let pageOffset = 0;
+  let specialsArray = [];
+  let specialsKeyCheck = {};
+  if (req.params.page) {
+    pageOffset = req.params.page;
+  }
+  let offSet = pageOffset * returnLimit;
+  try {
+    let recipesReturned = await Recipe.find()
+      .limit(returnLimit)
+      .skip(offSet)
+      .populate({ path: "ingredients", model: "Ingredient" })
+      .exec(async (err, docs) => {
+        for (let i = 0; i < docs.length; i++) {
+          for (let j = 0; j < docs[i].ingredients.length; j++) {
+            let isSpecial = await Special.findOne({
+              ingredientId: docs[i].ingredients[j].uuid,
+            });
+
+            if (isSpecial) {
+              let id = isSpecial._id;
+              if (!(id in specialsKeyCheck)) {
+                specialsArray.push(isSpecial);
+                specialsKeyCheck[isSpecial._id] = 1;
+              }
+            }
+          }
+        }
+        return res.json({ docs, specialsArray });
+      });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ msg: "Server error while retrieving all recipes" });
+  }
 });
 
 router.post("/", async (req, res) => {

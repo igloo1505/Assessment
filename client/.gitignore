@@ -10,6 +10,7 @@
 
 # production
 /build
+.notePad.js
 
 # misc
 .DS_Store

@@ -17,6 +17,7 @@ const RecipeSchema = mongoose.Schema({
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: false,
   },
   isPublic: {
     type: Boolean,
@@ -50,14 +51,10 @@ const RecipeSchema = mongoose.Schema({
     type: String,
     default: null,
   },
-  ingredients: [
-    {
-      uuid: { type: mongoose.Schema.Types.ObjectId, ref: Ingredient },
-    },
-  ],
+  ingredients: [{ type: mongoose.Schema.Types.ObjectId, ref: Ingredient }],
   directions: [
     {
-      instructions: String,
+      instructions: { type: String },
       optional: {
         type: Boolean,
         default: false,
