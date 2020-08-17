@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar.js";
-const MyRecipes = () => {
+import { connect } from "react-redux";
+import { getByFavorites } from "../stateManagement/actions.js";
+const MyRecipes = ({ user, recipe, getByFavorites }) => {
+  useEffect(() => {
+    getByFavorites(user.user.favorites);
+  }, []);
   return (
     <div>
       <Navbar active="myRecipes" />
@@ -9,4 +14,9 @@ const MyRecipes = () => {
   );
 };
 
-export default MyRecipes;
+const mapStateToProps = (state) => ({
+  user: state.user,
+  recipe: state.recipe,
+});
+
+export default connect(mapStateToProps, { getByFavorites })(MyRecipes);

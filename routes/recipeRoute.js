@@ -10,9 +10,18 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 
-router.get("/details/:id", (req, res) => {
-  console.log("made it to route getByID");
-  return res.send(req.params.id);
+router.post("/favorites", async (req, res) => {
+  console.log("body", req.body);
+  try {
+    let FavoritesArray = [];
+    for (var i = 0; i < req.body.length; i++) {
+      let f = await Recipe.findById(req.body[i]);
+      FavoritesArray.push(f);
+    }
+    return res.json(FavoritesArray);
+  } catch (error) {
+    return res.status(500).json({ msg: "Error retrieving favorites" });
+  }
 });
 
 router.get("/paginate/:page", async (req, res) => {

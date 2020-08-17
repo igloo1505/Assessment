@@ -6,6 +6,7 @@ import {
   USER_ERROR,
   GET_ALL_RECIPES,
   RECIPE_ERROR,
+  GET_BY_FAVORITES,
 } from "./Types.js";
 import axios from "axios";
 import setAuthenticated from "./setAuthenticated";
@@ -89,6 +90,17 @@ export const getAllRecipes = (pageOffset) => async (dispatch) => {
   try {
     const res = await axios.get(`/recipes/paginate/${page}`);
     dispatch({ type: GET_ALL_RECIPES, payload: res.data });
+  } catch (error) {
+    dispatch({ type: RECIPE_ERROR, payload: error });
+  }
+};
+
+export const getByFavorites = (favoritesArray) => async (dispatch) => {
+  try {
+    console.log(favoritesArray);
+    const res = await axios.post("/recipes/favorites", favoritesArray, config);
+    console.log("res", res);
+    dispatch({ type: GET_BY_FAVORITES, payload: res.data });
   } catch (error) {
     dispatch({ type: RECIPE_ERROR, payload: error });
   }
