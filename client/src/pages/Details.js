@@ -71,6 +71,10 @@ const Details = ({ props, user, recipes, setFavorite }) => {
     }
     return template;
   };
+  const handleSelectSpecial = (id) => {
+    let specials = matched_specials.filter((m) => m.ingredientId === id);
+    props.setTheSpecial(specials[0]);
+  };
 
   return (
     <div>
@@ -90,7 +94,12 @@ const Details = ({ props, user, recipes, setFavorite }) => {
                   <ul className="ingredientUL">
                     {thisRecipe &&
                       thisRecipe.ingredients.map((ing) => (
-                        <li className="ingredientLI" key={ing._id}>
+                        <li
+                          className="ingredientLI"
+                          key={ing._id}
+                          data-toggle="modal"
+                          data-target="#specialModal"
+                        >
                           <span
                             style={
                               checkSpecial(ing.uuid)
@@ -101,6 +110,12 @@ const Details = ({ props, user, recipes, setFavorite }) => {
                             data-placement="top"
                             data-html="true"
                             title={setToolip(ing)}
+                            className="tool-tip-trigger"
+                            onClick={() => {
+                              if (checkSpecial(ing.uuid)) {
+                                handleSelectSpecial(ing.uuid);
+                              }
+                            }}
                           >
                             {ing.amount} {"  "}
                             {ing.measurement && ing.measurement}

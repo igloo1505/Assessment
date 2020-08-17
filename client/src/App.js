@@ -12,6 +12,7 @@ import MyProfile from "./pages/MyProfile";
 import Details from "./pages/Details";
 import SignUp from "./pages/SignUp";
 import SignInModal from "./components/SignInModal";
+import SpecialModal from "./components/SpecialModal";
 import ProtectedRoute from "./stateManagement/ProtectedRoute";
 import {
   setAxiosDefaultsDev,
@@ -35,35 +36,55 @@ function App() {
     }
   });
   const [detailViewId, setDetailViewId] = useState("");
+  const [theSpecial, setTheSpecial] = useState({});
 
   return (
     <Provider store={store}>
       <div className="App">
         <SignInModal />
+        <SpecialModal theSpecial={theSpecial} />
         <Router>
           <Switch>
             <Route exact path="/" component={() => <Landing />} />
             <Route
               exact
               path="/viewAll"
-              component={() => <DisplayAll setDetailViewId={setDetailViewId} />}
+              component={() => (
+                <DisplayAll
+                  setDetailViewId={setDetailViewId}
+                  setTheSpecial={setTheSpecial}
+                />
+              )}
             />
             <ProtectedRoute
               exact
               path="/myRecipes"
-              component={() => <MyRecipes />}
+              component={() => <MyRecipes setTheSpecial={setTheSpecial} />}
             />
-            <Route exact path="/specials" component={() => <Specials />} />
+            <Route
+              exact
+              path="/specials"
+              component={() => <Specials setTheSpecial={setTheSpecial} />}
+            />
             <ProtectedRoute
               exact
               path="/myProfile"
-              component={() => <MyProfile />}
+              component={() => <MyProfile setTheSpecial={setTheSpecial} />}
             />
-            <Route exact path="/signUp" component={() => <SignUp />} />
+            <Route
+              exact
+              path="/signUp"
+              component={() => <SignUp setTheSpecial={setTheSpecial} />}
+            />
             <Route
               exact
               path="/details"
-              component={() => <Details detailViewId={detailViewId} />}
+              component={() => (
+                <Details
+                  detailViewId={detailViewId}
+                  setTheSpecial={setTheSpecial}
+                />
+              )}
             />
           </Switch>
         </Router>
