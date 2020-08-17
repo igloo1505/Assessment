@@ -16,6 +16,7 @@ export const setAxiosDefaultsDev = (token) => {
 };
 export const setAxiosDefaultsProd = (token) => {
   console.log(token);
+  axios.defaults.baseURL = "http://localhost:5000";
   if (token) {
     axios.defaults.headers = {
       "Content-Type": "application/json",
