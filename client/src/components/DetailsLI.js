@@ -19,6 +19,10 @@ const DetailsLI = (props) => {
     } else return "";
   };
   console.log("the special ", theSpecial);
+  const toolTipContent = `<h5>${isSpecial ? theSpecial.title : ""}</h5><p>${
+    isSpecial ? theSpecial.text : ""
+  }</p>`;
+
   return (
     <div>
       {isSpecial && (
@@ -33,7 +37,7 @@ const DetailsLI = (props) => {
         data-toggle="modal"
         data-target={props.isSpecial ? "#specialModal" : ""}
         id={isSpecial ? "specialModalTrigger" : ""}
-        data-tip={isSpecial ? theSpecial.text : ""}
+        data-tip={isSpecial ? toolTipContent : ""}
       >
         <span
           style={props.isSpecial ? { color: "purple" } : { color: "#fff" }}

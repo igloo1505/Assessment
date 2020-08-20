@@ -173,6 +173,36 @@ body {
   width: 100%;
 }
 
+.myRecipeContainer {
+  height: 800px;
+  width: 85vw;
+  max-width: min(1200px, 85%);
+  margin: 60px auto;
+}
+
+.navTabCol {
+  max-width: 200px;
+  float: left;
+
+  flex-direction: column;
+  list-style: none
+}
+
+.tabNavBar {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  flex-direction: column;
+  float: left;
+  height: 80vh;
+}
+
+
+
 /* Equivalent to bootstraps d-lg */
 @media (min-width: 992px) {
   .btnContainer {
@@ -184,6 +214,7 @@ body {
     margin: auto 3rem;
     width: 12rem;
   }
+
 }
 
 @media (min-width: 768px) {
@@ -258,6 +289,11 @@ body {
 
   .detailsCardMain {
     width: 100%
+  }
+
+  .addNewForm {
+    width: 80%;
+    float: right;
   }
 }
 

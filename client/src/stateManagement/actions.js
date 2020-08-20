@@ -3,6 +3,7 @@ import {
   LOGOUT_USER,
   REGISTER_NEW_USER,
   CHANGE_FAVORITE,
+  SUBMIT_NEW_RECIPE,
   USER_ERROR,
   GET_ALL_RECIPES,
   RECIPE_ERROR,
@@ -101,6 +102,16 @@ export const getByFavorites = (favoritesArray) => async (dispatch) => {
     const res = await axios.post("/recipes/favorites", favoritesArray, config);
     console.log("res", res);
     dispatch({ type: GET_BY_FAVORITES, payload: res.data });
+  } catch (error) {
+    dispatch({ type: RECIPE_ERROR, payload: error });
+  }
+};
+
+export const submitNewRecipe = (recipe) => async (dispatch) => {
+  console.log(recipe);
+  try {
+    const res = await axios.post("/recipes/submitNewRecipe", recipe, config);
+    dispatch({ type: SUBMIT_NEW_RECIPE, payload: res.data });
   } catch (error) {
     dispatch({ type: RECIPE_ERROR, payload: error });
   }

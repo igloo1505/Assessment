@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import $ from "jquery";
+
 import { setFavorite } from "../stateManagement/actions.js";
 
 const RecipeOverviewCard = ({
-  props: { recipe, setDetailViewId },
+  props: { recipe, setDetailViewId, setShowAlert },
   recipes,
   user,
   setFavorite,
@@ -26,15 +26,11 @@ const RecipeOverviewCard = ({
     }
     setMatched_specials(matchedSpecials);
   }, []);
-  (() => {
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  })();
+
   let currentFavs = user.user.favorites;
   const handleFavs = (e) => {
     if (!user.isAuthenticated || !user.token) {
-      history.push("/signUp");
+      setShowAlert();
     }
     let id = recipe._id;
     e.preventDefault();
@@ -45,12 +41,6 @@ const RecipeOverviewCard = ({
     }
     setFavorite({ method, id, userId: user.user._id });
   };
-
-  let tooltipTemplate = "";
-  for (let i = 0; i < matched_specials.length; i++) {
-    let templateString = `<div>${matched_specials[i].title}</div>`;
-    tooltipTemplate += templateString;
-  }
 
   const redirectToDetailView = () => {
     setDetailViewId(recipe);
@@ -109,9 +99,7 @@ const RecipeOverviewCard = ({
                 marginTop: "10px",
                 marginBottom: "10px",
               }}
-              data-toggle="tooltip"
               data-placement="top"
-              title={tooltipTemplate}
               data-html="true"
             >
               {matched_specials.length} Specials!

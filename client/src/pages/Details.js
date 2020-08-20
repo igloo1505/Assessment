@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { setFavorite } from "../stateManagement/actions.js";
 import { CHANGE_FAVORITE } from "../stateManagement/Types.js";
 import DetailsLI from "../components/DetailsLI.js";
-// import ToolTip from "../components/ToolTip.js";
 
 const Details = ({ props, user, recipes, setFavorite }) => {
   console.log(props);
@@ -14,8 +13,7 @@ const Details = ({ props, user, recipes, setFavorite }) => {
   const imgSrc = require("../img/stockPhotoForNow.jpg");
   let history = useHistory();
   const [matched_specials, setMatched_specials] = useState([]);
-  const [toolTipContent, setToolTipContent] = useState("");
-
+  const [showAlert, setShowAlert] = useState(false);
   const [isCurrentFavorite, setIsCurrentFavorite] = useState(false);
   useEffect(() => {
     if (user.user.favorites.indexOf(props.detailViewId._id) !== -1) {
@@ -43,6 +41,9 @@ const Details = ({ props, user, recipes, setFavorite }) => {
   }, [user.user.favorites, CHANGE_FAVORITE]);
   let currentFavs = user.user.favorites;
   const handleFavs = (e) => {
+    if (!user.isAuthenticated) {
+      setShowAlert(true);
+    }
     let id = props.detailViewId._id;
     e.preventDefault();
     e.stopPropagation();
@@ -70,6 +71,34 @@ const Details = ({ props, user, recipes, setFavorite }) => {
   return (
     <div>
       <Navbar />
+      <div
+        className={
+          showAlert
+            ? "alert alert-warning alert-dismissible fade show"
+            : "alert alert-warning alert-dismissible fade"
+        }
+        role="alert"
+      >
+        <strong style={{ display: "block" }}>Oh no!</strong>
+        We're sorry. To favorite a recipe you need to create an account first.
+        Click{" "}
+        <a
+          style={{ fontWeight: 400, TextDecoration: "underline" }}
+          onClick={() => history.push("/signUp")}
+        >
+          <em style={{ textDecoration: "underline", cursor: "pointer" }}>
+            here to sign up.
+          </em>
+        </a>
+        <button
+          type="button"
+          className="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div className="detailCardWrapper">
         <div className="detailCard">
           <div

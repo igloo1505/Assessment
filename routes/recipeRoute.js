@@ -24,6 +24,55 @@ router.post("/favorites", async (req, res) => {
   }
 });
 
+router.post("/submitNewRecipe", async (req, res) => {
+  console.log(req.body);
+  try {
+    const {
+      title,
+      servings,
+      description,
+      prepTime,
+      cookTime,
+      ingredients,
+      directions,
+      submittedBy,
+    } = req.body;
+    let ingredientArray = [];
+    let directionsArray = [];
+    for (var i = 0; i < ingredients.length; i++) {
+      let newIngredient = new Ingredient(ingredients[i]);
+      await newIngredient.save();
+      ingredientArray.push(newIngredient._id);
+    }
+    for (var z = 0; z < directions.length; z++) {
+      let obj = {};
+      if (typeof directions[z] === "string") {
+        obj.instructions = directions[z];
+      }
+      if (z.optional) {
+        obj.optional = directions[z].optional;
+      }
+      directionsArray.push(obj);
+    }
+    let newRecipe = new Recipe({
+      title,
+      servings,
+      description,
+      prepTime,
+      cookTime,
+      ingredients: ingredientArray,
+      submittedBy,
+      directions: directionsArray,
+    });
+    await newRecipe.save();
+    return res.json(newRecipe);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ msg: "Server error at save new Recipe", err: error });
+  }
+});
+
 router.get("/paginate/:page", async (req, res) => {
   const returnLimit = 10;
   let pageOffset = 0;
