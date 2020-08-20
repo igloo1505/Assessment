@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar.js";
 import { connect } from "react-redux";
 import { setFavorite } from "../stateManagement/actions.js";
 import { CHANGE_FAVORITE } from "../stateManagement/Types.js";
+import DetailsLI from "../components/DetailsLI.js";
+// import ToolTip from "../components/ToolTip.js";
 
 const Details = ({ props, user, recipes, setFavorite }) => {
   console.log(props);
@@ -12,6 +14,7 @@ const Details = ({ props, user, recipes, setFavorite }) => {
   const imgSrc = require("../img/stockPhotoForNow.jpg");
   let history = useHistory();
   const [matched_specials, setMatched_specials] = useState([]);
+  const [toolTipContent, setToolTipContent] = useState("");
 
   const [isCurrentFavorite, setIsCurrentFavorite] = useState(false);
   useEffect(() => {
@@ -49,28 +52,16 @@ const Details = ({ props, user, recipes, setFavorite }) => {
     }
     setFavorite({ method, id, userId: user.user._id });
   };
-  (() => {
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  })();
 
   const checkSpecial = (ingId) => {
     let r = matched_specials.filter((m) => m.ingredientId === ingId);
     if (r.length !== 0) {
-      return true;
+      return r[0];
     } else {
       return false;
     }
   };
-  const setToolip = (ing) => {
-    let template = "";
-    let specials = matched_specials.filter((m) => m.ingredientId === ing.uuid);
-    if (specials.length > 0) {
-      template += `<div>${specials[0].title}</div><div>${specials[0].text}</div>`;
-    }
-    return template;
-  };
+
   const handleSelectSpecial = (id) => {
     let specials = matched_specials.filter((m) => m.ingredientId === id);
     props.setTheSpecial(specials[0]);
@@ -94,35 +85,20 @@ const Details = ({ props, user, recipes, setFavorite }) => {
                   <ul className="ingredientUL">
                     {thisRecipe &&
                       thisRecipe.ingredients.map((ing) => (
-                        <li
-                          className="ingredientLI"
+                        <DetailsLI
+                          isSpecial={
+                            checkSpecial(ing.uuid) === false ? false : true
+                          }
+                          theSpecial={
+                            checkSpecial(ing.uuid) === false
+                              ? null
+                              : checkSpecial(ing.uuid)
+                          }
                           key={ing._id}
-                          data-toggle="modal"
-                          data-target="#specialModal"
-                        >
-                          <span
-                            style={
-                              checkSpecial(ing.uuid)
-                                ? { color: "purple" }
-                                : { color: "#fff" }
-                            }
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            data-html="true"
-                            title={setToolip(ing)}
-                            className="tool-tip-trigger"
-                            onClick={() => {
-                              if (checkSpecial(ing.uuid)) {
-                                handleSelectSpecial(ing.uuid);
-                              }
-                            }}
-                          >
-                            {ing.amount} {"  "}
-                            {ing.measurement && ing.measurement}
-                            {"  "}
-                            {ing.name}
-                          </span>
-                        </li>
+                          handleSelectSpecial={handleSelectSpecial}
+                          ingredient={ing}
+                          matchedSpecials={matched_specials}
+                        />
                       ))}
                   </ul>
                 </div>
